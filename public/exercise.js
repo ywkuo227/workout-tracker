@@ -113,8 +113,11 @@ async function handleFormSubmit(event) {
     workoutData.reps = Number(repsInput.value.trim());
     workoutData.duration = Number(resistanceDurationInput.value.trim());
   }
-
-  await API.addExercise(workoutData);
+  
+  // Introduced small logic to avoid empty data being sent to addExercise route.
+  if (workoutData.duration !== 0){
+    await API.addExercise(workoutData);
+  }
   clearInputs();
   toast.classList.add("success");
 }
